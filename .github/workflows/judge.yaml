@@ -1,0 +1,46 @@
+name: Judge Code
+
+on: push
+permissions:
+  contents: write
+
+jobs:
+  judge-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Build Tools
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential
+      - name: Install Icarus Verilog
+        run: sudo apt install -y iverilog
+      - name: Download libvcd repo
+        run: git clone https://github.com/sorousherafat/libvcd
+      - name: Compile libvcd repo
+        run: gcc -c -o libvcd.o -O3 libvcd/libvcd.c
+      - name: Download vjudge repo
+        run: git clone https://github.com/sorousherafat/vjudge-cli
+      - name: Compile vjudge repo
+        run: gcc -o vjudge -O3 vjudge-cli/main.c libvcd.o
+      - name: Download tests
+        run: |
+          rm -rf TESTS_DIR
+          wget -O judge.zip http://159.69.210.96:35231/VerilogJudge.zip
+          unzip judge.zip
+      - name: Judge
+        run: |
+          date > grade.txt
+          ./vjudge -t TESTS_DIR predictor.v >> grade.txt 2>&1 || true
+      - name: Setup git
+        run: |
+          git config --global user.name 'Hardwar Judge'
+          git config --global user.email 'Hardwar2023@users.noreply.github.com'
+      - name: Add commit
+        run: |
+          git add grade.txt
+      - name: Push
+        run: |
+          git commit -m "Grade" || true
+          git push

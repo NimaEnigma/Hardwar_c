@@ -1,0 +1,4 @@
+Thu Jun  1 05:49:47 UTC 2023
+Test 'predictor' failed for src file 'predictor.v'
+src file 'predictor.v': 0/1 tests passed
+
