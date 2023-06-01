@@ -1,6 +1,6 @@
 module predictor(input wire request, result, clk, taken, output reg prediction);
 
-    reg [1:0] state;
+    reg [1:0] state = 2'd3;
     parameter snt = 2'd0;
               wnt = 2'd1;
               wt  = 2'd2;
