@@ -1,4 +1,6 @@
-Thu Jun  1 06:35:26 UTC 2023
-Test 'predictor' failed for src file 'predictor.v'
-src file 'predictor.v': 0/1 tests passed
-
+Thu Jun  1 07:07:34 UTC 2023
+predictor.v:5: syntax error
+predictor.v:5: error: Invalid module instantiation
+predictor.v:6: error: Invalid module instantiation
+predictor.v:7: error: Invalid module instantiation
+An error occurred when opening .vcd file '.tmp.vcd'
